@@ -17,6 +17,7 @@ export class NfcReaderComponent {
         const ndef = new (window as any).NDEFReader();
         await ndef.scan();
         ndef.onreading = (event: any) => {
+          console.log(event);
           this.serial = event.serial;
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
