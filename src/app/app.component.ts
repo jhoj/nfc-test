@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'nfc';
+
+  onScanned(serialNumber: string): void {
+    alert(serialNumber);
+  }
 }

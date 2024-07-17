@@ -1,39 +1,45 @@
 // src/app/nfc-reader/nfc-reader.component.ts
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-nfc-reader',
+  selector: 'nfc-reader',
   templateUrl: './nfc-reader.component.html',
   styleUrls: ['./nfc-reader.component.css']
 })
 export class NfcReaderComponent implements OnInit {
-  message: string = 'Waiting for NFC tag...';
-  serial: string = "";
-  constructor(private cdr: ChangeDetectorRef) { }
+  @Input() isDebugMode: boolean = false;
+  @Output() serialNumber = new EventEmitter<string>();
+  status: string = "NFC reader not active";
+  constructor() { }
   
   ngOnInit(): void {
     this.readNfcTag();
   }
 
-  async readNfcTag() {
+  async readNfcTag() {    
     if ('NDEFReader' in window) {
       try {
         const ndef = new (window as any).NDEFReader();
         await ndef.scan();
+        this.status = "NFC reader ready";
         ndef.onreading = (event: any) => {
-          console.log(event);
-          this.serial = event.serialNumber;
-          this.cdr.detectChanges();
-          const decoder = new TextDecoder();
-          for (const record of event.message.records) {
-            console.log(record);
-          }
-        };
+          this.log(event);
+          let serialNumber = event.serialNumber as string;
+          serialNumber = serialNumber.replace(":", "");
+
+          this.serialNumber.emit(serialNumber);
+        };      
       } catch (error: any) {
-        this.message = `Error: ${error.message}`;
+        this.log(`Error: ${error.message}`);
       }
     } else {
-      this.message = 'Web NFC is not supported on this device/browser.';
+      this.log('Web NFC is not supported on this device/browser.');      
+    }
+  }
+
+  log(message: any): void {
+    if (this.isDebugMode) {
+      console.log(message);
     }
   }
 }
