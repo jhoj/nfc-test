@@ -25,7 +25,7 @@ export class NfcReaderComponent implements OnInit {
         ndef.onreading = (event: any) => {
           this.log(event);
           let serialNumber = event.serialNumber as string;
-          serialNumber = serialNumber.replace(":", "");
+          serialNumber = serialNumber.replace(/:/g, '');
 
           this.serialNumber.emit(serialNumber);
         };      
