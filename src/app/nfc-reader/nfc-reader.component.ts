@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class NfcReaderComponent {
   message: string = 'Waiting for NFC tag...';
-
+  serial: string = "";
   constructor() { }
 
   async readNfcTag() {
@@ -17,6 +17,7 @@ export class NfcReaderComponent {
         const ndef = new (window as any).NDEFReader();
         await ndef.scan();
         ndef.onreading = (event: any) => {
+          this.serial = event.serial;
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
             if (record.recordType === 'text') {
