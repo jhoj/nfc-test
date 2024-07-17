@@ -18,14 +18,10 @@ export class NfcReaderComponent {
         await ndef.scan();
         ndef.onreading = (event: any) => {
           console.log(event);
-          this.serial = event.serial;
+          this.serial = event.serialNumber;
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
-            if (record.recordType === 'text') {
-              this.message = decoder.decode(record.data);
-            } else {
-              this.message = 'NFC tag read, but it contains non-text data.';
-            }
+            console.log(record);
           }
         };
       } catch (error: any) {
