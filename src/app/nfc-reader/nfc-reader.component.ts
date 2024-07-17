@@ -1,15 +1,19 @@
 // src/app/nfc-reader/nfc-reader.component.ts
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-nfc-reader',
   templateUrl: './nfc-reader.component.html',
   styleUrls: ['./nfc-reader.component.css']
 })
-export class NfcReaderComponent {
+export class NfcReaderComponent implements OnInit {
   message: string = 'Waiting for NFC tag...';
   serial: string = "";
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
+  
+  ngOnInit(): void {
+    this.readNfcTag();
+  }
 
   async readNfcTag() {
     if ('NDEFReader' in window) {
@@ -19,6 +23,7 @@ export class NfcReaderComponent {
         ndef.onreading = (event: any) => {
           console.log(event);
           this.serial = event.serialNumber;
+          this.cdr.detectChanges();
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
             console.log(record);
