@@ -1,3 +1,12 @@
 node_modules/
-.angular/
+.angular/cache
+.angular\
 .vscode/
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/0.pack
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/0.pack
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/0.pack
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/index.pack
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/index.pack.old
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/0.pack
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/index.pack
+.angular/cache/15.2.11/angular-webpack/d9bb0edd5d015b5705f76dad472d7f69b4a09d38/index.pack.old
